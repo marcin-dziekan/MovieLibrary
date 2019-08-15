@@ -1,0 +1,78 @@
+﻿@model VideoLib.Models.Movie
+@{
+    ViewBag.Title = "Movie";
+}
+<div class="hidden-sm hidden-xs" style="padding-top:16vh"></div>
+<div class="hidden-lg hidden-md" style="padding-top:55px"></div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div id="parent" class="row" >
+        <div class="col-md-9">
+            <div class="row">
+                <video controls="controls" style="width:100%; height:auto" autoplay="autoplay" id="player">
+                    <source src="~/@Model.WitchDrive/@Model.Path" />
+                </video>
+            </div>
+        </div>
+        <div>
+            <div class="col-md-3 row">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        @Html.TextBox("searchMovie", null, htmlAttributes: new { @class = "col-md-8", @placeholder = "Tytuł filmu", @style = "line-height: 30px; width: 100%; color:#000;" })
+                        <input id="searchBtn" type="button" value="SZUKAJ" class="col-md-4" style="line-height:30px; width:100%; background-color: #000; border: 0px" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 hidden-xs hidden-sm" style="background-color:#2f2f2f; width:100%; height: 100%">
+                    <div style="padding-top:20px; padding-bottom:20px;">
+                        @Html.Partial("_MovieList")
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 hidden-md  hidden-lg" style="background-color:#222222; width:100%; ">
+                    <div style="padding-top:20px; padding-bottom:20px;">
+                        @Html.Partial("_MovieList")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="hidden-sm hidden-xs" style="margin-top:15px; text-align:left;">@Model.FullName</h4>
+    <hr class="hidden-sm hidden-xs" style="margin-top: -10px;" />
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#searchBtn").on("click", function () {
+            var name = $("#searchMovie").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SearchMovie", "Home")',
+                dataType: "json",
+                data: { "movieName": name },
+                success: function (mList) {
+                    $(".movieList").each(function () { this.remove() });
+                    $(".movieListBlock").each(function () { this.innerHTML += "<div class='movieList'> </div>"; });
+                    for (var a = 0; a < mList.length; a++)
+                    {
+                        $(".movieList").each(function () { this.innerHTML += "<div><a href='/Home/Movie/" + mList[a].FullName + "?drive=" + mList[a].WitchDrive + "&name=" + mList[a].FullName + "'>" + mList[a].FullName + "</a></div><div><hr style='border:2px solid; border-color: #680000; border-top-left-radius:3px; border-bottom-left-radius:3px;' /></div>"; });
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        });
+    });
+
+    $(function () {
+        var screenWidth = window.screen.availWidth;
+        if (screenWidth > 780) {
+            document.getElementById("player").volume = 0.1;
+        }
+    })
+
+    //$(document).ready(function () { $("body").css({ backgroundColor: '#080808' }); $(".navbar").css({ backgroundColor: '#212121' }); $(".stopka").fadeOut("slow") })
+</script>

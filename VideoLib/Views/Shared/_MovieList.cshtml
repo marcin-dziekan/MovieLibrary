@@ -1,0 +1,20 @@
+﻿@model VideoLib.Models.Movie
+    <script src="~/Scripts/jquery.mCustomScrollbar.js"></script>
+
+        @{
+
+            <div class="movieListBlock" style="display:block; overflow:auto; height:47vh; width:auto; overflow-x: hidden">
+                <div class="movieList">
+                    @foreach (var item in Model.MovieList)
+                    {
+                        <div>
+
+                            <a href="@Url.Action("Movie", "Home", new { id = item.FullName, drive = item.WitchDrive, name = item.FullName })">@Html.DisplayFor(modelItem => item.FullName)</a>
+                            <hr style="border:2px solid; border-color: #680000; border-top-left-radius:3px; border-bottom-left-radius:3px;" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+

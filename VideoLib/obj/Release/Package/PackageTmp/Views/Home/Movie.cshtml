@@ -1,0 +1,68 @@
+﻿@model VideoLib.Models.Movie
+@{
+    ViewBag.Title = "Movie";
+}
+<div class="hidden-sm hidden-xs" style="padding-top:13vh"></div>
+<div class="hidden-lg hidden-md" style="padding-top:55px"></div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div id="parent" class="row" >
+        <div class="col-md-9">
+            <video controls="controls" style="width:100%; height:auto" autoplay="autoplay" id="player">
+                <source src="~/@Model.witchDrive/@Model.path" />
+            </video>
+        </div>
+        <div>
+            <div class="col-md-3 row">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        @Html.TextBox("searchMovie", null, htmlAttributes: new { @class = "col-md-8", @placeholder = "Tytuł filmu", @style = "line-height: 30px; width: 100%; color:#000;" })
+                        <input type="button" value="SZUKAJ" class="col-md-4" style="line-height:30px; width:100%" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 hidden-xs hidden-sm" style="background-color:#2f2f2f; width:100%; height: 100%">
+                    <div style="padding-top:20px; padding-bottom:20px;">
+                        @Html.Partial("_MovieList")
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 hidden-md  hidden-lg" style="background-color:#222222; width:100%; ">
+                    <div style="padding-top:20px; padding-bottom:20px;">
+                        @Html.Partial("_MovieList")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 style="margin-top:15px; text-align:left;">@Model.fullName</h4>
+    <hr style="margin-top: -10px;" />
+</div>
+
+
+
+<script>
+    @*$(function() {
+        $.ajax({
+            dataType = "JSON",
+            type = "POST",
+            url = '@Url.Action("GetMovieList")',
+            cache = false,
+            data = { "movieName": $("#searchMovie").text() },
+            success = function (data) {
+                alert("ok");
+            }
+
+        });
+    })*@
+
+    $(function () {
+        $(document).ready(
+            alert($("#player").height())
+        );
+    //$('.sub').closest('.contain').height();
+        
+
+    });
+    //$(document).ready(function () { $("body").css({ backgroundColor: '#080808' }); $(".navbar").css({ backgroundColor: '#212121' }); $(".stopka").fadeOut("slow") })
+</script>

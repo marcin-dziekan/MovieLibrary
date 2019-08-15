@@ -1,0 +1,43 @@
+﻿@model VideoLib.Models.Movie
+    <script src="~/Scripts/jquery.mCustomScrollbar.js"></script>
+
+        @{
+
+            <div id="movieListBlock" style="display:block; overflow:auto; height:51vh; width:auto">
+                @foreach (var item in Model.MovieList)
+                {
+
+                    <div>
+
+                        <a class="movieList" href="@Url.Action("Movie", "Home", new { id = item.fullName, drive = item.witchDrive, name = item.fullName })">@Html.DisplayFor(modelItem => item.fullName)</a>
+                        <hr style="border:2px solid; border-color: #680000; border-top-left-radius:3px; border-bottom-left-radius:3px;" />
+                    </div>
+                }
+            </div>
+        }
+
+
+<script>
+    //$(".tStyle").mCustomScrollbar({
+    //theme:"light-3"
+    //});
+    $(function () {
+        var screenWidth = window.screen.availWidth;
+        if (screenWidth > 780) {
+            document.getElementById("player").volume = 0.1;
+        }
+    })
+
+  
+
+    //$(function () {
+    //    $(document).ready(function () {
+    //        var h = document.getElementById("player");
+    //        h.addEventListener("loadedmetadata", function (e) {
+    //            var height = this.videoHeight;
+    //            $("#tStyle").css("height", height);
+    //        }, false);
+
+    //    })
+    //})
+</script>
